@@ -1,0 +1,243 @@
+---
+title: "Introduction"
+teaching: 0
+exercises: 0
+questions:
+- "Key question (FIXME)"
+objectives:
+- "First learning objective. (FIXME)"
+keypoints:
+- "First key point. Brief Answer to questions. (FIXME)"
+---
+
+# Are you there?
+
+Is something present in a string?
+
+Looking at this string:
+
+"The quick brown fox jumps over the lazy dog"
+
+it is easy to see that the word "fox" is present.
+
+Getting 
+
+```{r}
+library(tidyverse)
+
+text <- "The quick brown fox jumps over the lazy dog"
+
+str_detect(string = text, pattern = "fox")
+
+```
+That is simple. Does the book "Mathilda" contain the word mother?
+```{r}
+mathilda <- read_file("../data/pg15238.txt")
+
+str_detect(mathilda, "mother")
+```
+It does. This is a relatively short book of only 108 pages. But it would still
+take us some time to read it, and make a note of each instance of the word mother.
+And given the subject, a semi-biographical tale of a young womans troubled 
+relationship with her father after her mothers death, it should not come as a 
+surprise
+
+How many times does the word mother occur?
+
+```{r}
+str_count(mathilda, "mother")
+```
+Note the general pattern of the functions. Their names begin with *str_*, 
+and continues with *what the function does*. There are two arguments. The 
+text (or string), we are searching for. And the string, or pattern, that we are 
+looking for.
+
+What is the difference between a string, and a pattern?
+
+A string is a string of characters. The way we have read in the novel, means that
+the entire novel is a string. A pattern is a string that we are looking for. In
+this example, the word "mother".
+In order to avoid confusion, we are going to call the string we are looking for,
+a pattern. The pattern we are looking for here, is the combination of the 
+letters m, o, t, h, e and r. In that order. 
+
+
+
+This motif will become very familiar.
+
+We do have one problem. We have not actually found all the instances of 
+"mother" in the text. Mother can also be capitalized, with an uppercase "M".
+
+```{r}
+str_count(mathilda, "Mother")
+```
+
+This is a common phenomenon. The standard way to handle it, is to make sure
+all letters are lowercase. 
+
+There is a function for that, and now we are invoking the pipe.
+```{r}
+mathilda %>% 
+  str_to_lower() %>% 
+  str_count("mother")
+```
+str_to_lower converts every letter in the text to lowercase. That makes it 
+relatively easy to count the number of occurences - because we do not need to
+take into account that some of the words might be capitalized.
+
+Note that sometimes this is not a good idea. If we are trying to identify a 
+character named "Miller", converting to lowercase might confuse the name with 
+the profession.
+
+str_to_lower is one member of a family of functions that changes letters from
+one case to another. Let us take a look:
+
+```{r}
+test_sentence <- "this iS a senTence"
+str_to_lower(test_sentence)
+```
+```{r}
+str_to_upper(test_sentence)
+```
+
+```{r}
+str_to_title(test_sentence)
+```
+```{r}
+str_to_sentence(test_sentence)
+```
+Back to the novel.
+
+A common thing to do in working with text, is to not only search, but also
+replace. When we write something in word, and believe that what we are writing
+about happens in London, but then find out that it is actually happening in 
+Paris, it is practical to do a search-and-replace, and replace all instances
+of London with Paris.
+
+Stringr has a function for that.
+str_replace
+The motif is familiar. str_ at the start, and then what the function is doing,
+that is replacing stuff with something else.
+
+str_replace has a twin, str_replace_all(), that will replace all instances of
+what we are looking for, whereas str_replace will replace the first instance.
+
+The syntax is straightforward. First we provide the string we want do to 
+search-and-replace on to the function. Then we give it the pattern that we want
+replaced, and then the pattern we want to replace it with:
+
+```{r}
+str_replace_all("my mother lives in Helsinge", "mother", "father")
+```
+It can of course also be used on our example text - but it takes too long to 
+read it, and note that mother has been replaced by father.
+
+Rather than replacing a pattern with something else, it can also be used to
+entirely remove that pattern:
+
+```{r}
+str_replace_all("my mother lives in Helsinge", "mother", "")
+```
+We do this often enough, that a function is available in stringr for this:
+
+```{r}
+str_remove_all("my mother lives in Helsinge", "mother")
+```
+saving a few keystrokes. The sibling to this function is str_remove() that 
+will only remove the first instance of the pattern.
+
+
+"Mother" is a word used in this novel.
+
+But where in the novel? The function str_locate_all() will find the positions
+in the text of the beginning and the end of the pattern we are looking for.
+
+```{r}
+falkner %>% 
+  str_to_lower() %>% 
+  str_locate_all("mother") %>% 
+  .[[1]] %>% 
+  head()
+```
+
+The functions from stringr are vectorised. That allows us to use them on
+more than one text at a time. Because of this, the result is a list, in this case
+with only one element. Had we applied the function to more than one text, we 
+would have gotten one element in the list for each text.
+
+the *.[[1]]* line takes what come from the pipe, indicated by the period, and
+extracts the first element of that list. We are piping the result to the head()
+function, in order to only see the first 6 results.
+
+The result gives us the beginning and the end of each match in the text.
+
+challenge
+Why? mother is always six characters. If the beginning is at position 81112,
+the end will always be 81117. So why would we need both the beginning and the 
+end?
+answer - because we might be able to write patterns that matches stuff that has different
+lengths. We will get to those types of patterns.
+end challenge
+
+The motif str_something_all is also a general motif in the stringr package.
+In general if we have a function that might return more than one result, we 
+have a pair of functions. str_locate_all will find all the positions. 
+str_locate() will find the first. If we are only interested in the first hit,
+we can save some milliseconds by using str_locate() rather than str_locate_all().
+
+In this case, only finding the first instance is about 5 times faster than 
+finding all. The average for the two is 459 and 2277 respectively (on the computer
+where these words are written). The unit is microseconds, so the win is small.
+
+```{r}
+falkner %>% 
+  str_to_lower() %>% 
+  str_locate("mother")
+```
+
+
+
+```{r}
+library(tidyverse)
+str_c()
+#str_count()
+#str_detect()
+str_dup()
+str_ends()
+# str_extract()
+# str_extract_all()
+str_flatten()
+str_glue()
+str_glue_data()
+str_interp()
+str_length()
+# str_locate()
+# str_locate_all()
+# str_match()
+# str_match_all()
+str_order()
+str_pad()
+# str_remove()
+# str_remove_all()
+# str_replace()
+# str_replace_all()
+str_replace_na()
+str_sort()
+str_split()
+str_split_fixed()
+str_squish()
+str_starts()
+str_sub()
+str_subset()
+# str_to_lower()
+# str_to_sentence()
+# str_to_title()
+# str_to_upper()
+str_trim()
+str_trunc()
+# str_view()
+# str_view_all()
+str_which()
+str_wrap()
+```
+

@@ -12,49 +12,35 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-How to manipulate text using R.
+We would like to be able to manipulate text. 
 
-The rationale - we want to be able to pick out parts of strings (or split them=.
-Or manipulate them in other ways. Glueing them together so we make one 
-string out of two.
+We have 10.000 texts on our computer. Which of them contains the word "history"?
 
-Or replace parts of a string with something.
-Or remove parts of a string.  Which is basically the same as replacing something,
-here we are just replacing with nothing
+How many contains the word "history"? Both lowercase and upper case?
 
-fra https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html:
+How many of them contains the word "history" more than 10 times? 
 
-Character manipulation: these functions allow you to manipulate individual characters within the strings in character vectors.
+How many of them have the word "history" as more than 1% of the words in the books?
 
-Whitespace tools to add, remove, and manipulate whitespace.
+Is there a way to change the word "history" to "chronicle" in all of these files?
 
-Locale sensitive operations whose operations will vary from locale to locale.
+This is manipulation of strings.
 
-Pattern matching functions. These recognise four engines of pattern description. The most common is regular expressions, but there are three other tools.
+In this course we will look at how text can be manipulated using R.
 
-Hvilke tre andre?
+We will begin by looking at the foundation. How do we manipulate single strings.
+
+The techniques used noget med at de fungerer vektoriseret også.
+
+We are going to work almost exclusively with the stringr package from the tidyverse.
+
+## getting ready
+
+Download filer
+
+gutenbergr
+
+for at få filerne på en anden måde
 
 
-
-
-```r
-library(tidyverse)
-```
-
-```
-## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-```
-
-```
-## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-## ✔ tibble  3.1.7     ✔ dplyr   1.0.9
-## ✔ tidyr   1.2.0     ✔ stringr 1.4.0
-## ✔ readr   2.1.2     ✔ forcats 0.5.1
-```
-
-```
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
 
