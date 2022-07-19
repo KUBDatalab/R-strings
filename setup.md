@@ -44,4 +44,14 @@ install packages (tidyverse)
 gutenbergr
 
 
+start et projekt
+
+opret mappen "data" i projektet
+
+Download følgende filer - giv kode der gør det.
+
+dette er strukturen. Men skal opdateres når nye filnavne er pushet til repoet.
+download.file("https://raw.githubusercontent.com/KUBDatalab/R-strings/main/data/64329-0.txt",
+              "data/SAFI_clean.csv", mode = "wb")
+
 {% include links.md %}
