@@ -12,35 +12,45 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-We would like to be able to manipulate text. 
+## Why should we even care?
 
-We have 10.000 texts on our computer. Which of them contains the word "history"?
-
-How many contains the word "history"? Both lowercase and upper case?
-
-How many of them contains the word "history" more than 10 times? 
-
-How many of them have the word "history" as more than 1% of the words in the books?
-
-Is there a way to change the word "history" to "chronicle" in all of these files?
-
-This is manipulation of strings.
-
-In this course we will look at how text can be manipulated using R.
-
-We will begin by looking at the foundation. How do we manipulate single strings.
-
-The techniques used noget med at de fungerer vektoriseret også.
-
-We are going to work almost exclusively with the stringr package from the tidyverse.
-
-## getting ready
-
-Download filer
-
-gutenbergr
-
-for at få filerne på en anden måde
+Data is not just numbers. Data can also be text. 
+It can range from a column in 
+a spread sheet where some observation is coded by a word, that we need to 
+read, normalise and count. To the complete Ulysses by James Joyce, where it might
+be of interest that the word "old" has been used 490 times. And that the frequency
+increases rather dramatically in the last ~2000 sentences of the novel.
 
 
+```
+## Error in gutenberg_download(4300, mirror = my_mirror) %>% pull(text) %>% : could not find function "%>%"
+```
+
+So we would like to be able to manipulate text in R. 
+
+Or rather, we would like to be able to manipulate strings. Text implies that 
+this is something that we can read and understand (given that we know the 
+language). But in this context, strings can also be *B184465*, or 
+*TATTCTGGGAATAGTGCCTATCTCTGCCTATTTGTCTGGTTGTTCAATTCAGGCACGTAG*, six random 
+digits preceeded by a "B", and part of the human genome respectively.
+
+We want to be able to detect if the word "fawning" even occurs in "Ulysses"
+(it does - once, at the end of a sentence, immediately after the word "bearish").
+
+We want to be able to count how many times a given pattern of characters
+appears in a text, whether it is "old", or "Two adenines, followed by either
+one guanine or one cytosine, followed by at least three Thymines".
+
+We want to be able to replace all instances of "old" with "young" in order to
+give new and perhaps confusing meaning to "Ulysses". And we want to be able 
+to analyse which words most commonly occurs immediately before and after "old".
+
+And we want to be able to generate the title of the plot above, replacing the
+word "old" automatically depending on what we actually count.
+
+All of this, and more, will be covered in this course. We can only scratch at 
+the surface of this subject, but hopefully you will have a better understanding 
+of what can be done, and how, with strings in R.
+
+{% include links.md %}
 

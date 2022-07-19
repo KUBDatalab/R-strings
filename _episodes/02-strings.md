@@ -30,17 +30,11 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-```
-
-```
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
 ## ✔ tibble  3.1.7     ✔ dplyr   1.0.9
 ## ✔ tidyr   1.2.0     ✔ stringr 1.4.0
 ## ✔ readr   2.1.2     ✔ forcats 0.5.1
-```
-
-```
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
@@ -59,12 +53,18 @@ That is simple. Does the book "Mathilda" contain the word mother?
 
 ```r
 mathilda <- read_file("../data/pg15238.txt")
+```
 
+```
+## Error: '../data/pg15238.txt' does not exist in current working directory ('/home/runner/work/R-strings/R-strings/_episodes_rmd').
+```
+
+```r
 str_detect(mathilda, "mother")
 ```
 
 ```
-## [1] TRUE
+## Error in stri_detect_regex(string, pattern, negate = negate, opts_regex = opts(pattern)): object 'mathilda' not found
 ```
 It does. This is a relatively short book of only 108 pages. But it would still
 take us some time to read it, and make a note of each instance of the word mother.
@@ -80,7 +80,7 @@ str_count(mathilda, "mother")
 ```
 
 ```
-## [1] 32
+## Error in stri_count_regex(string, pattern, opts_regex = opts(pattern)): object 'mathilda' not found
 ```
 Note the general pattern of the functions. Their names begin with *str_*, 
 and continues with *what the function does*. There are two arguments. The 
@@ -109,7 +109,7 @@ str_count(mathilda, "Mother")
 ```
 
 ```
-## [1] 3
+## Error in stri_count_regex(string, pattern, opts_regex = opts(pattern)): object 'mathilda' not found
 ```
 
 This is a common phenomenon. The standard way to handle it, is to make sure
@@ -124,7 +124,7 @@ mathilda %>%
 ```
 
 ```
-## [1] 35
+## Error in stri_trans_tolower(string, locale = locale): object 'mathilda' not found
 ```
 str_to_lower converts every letter in the text to lowercase. That makes it 
 relatively easy to count the number of occurences - because we do not need to
@@ -476,3 +476,4 @@ str_wrap()
 ## Error in stri_wrap(string, width = width, indent = indent, exdent = exdent, : argument "string" is missing, with no default
 ```
 
+{% include links.md %}
